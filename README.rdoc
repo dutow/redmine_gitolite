@@ -1,3 +1,18 @@
+= NEWSCM
+
+The newscm branch is the future version of the redmine gitolite plugin which will create a new source control module besides git. With this module both Gitolite and the original Git module are usable.
+
+== WARNING
+
+This version uses a different database format than the previous one, if you switch you should update every project which uses this plugin. The previous version used absolute urls for gitolite paths (/var/lib/gitolite/repositories/anything by default) but this branch uses relative (just "anything"). Also every occurence of "git" type scm should be changed to "gitolite" by a database editor.
+
+== Status
+
+* Gitolite repository management works (users, repositories, even sub-sub-sub-*-projects )
+ * Some bug makes neccessary to press save two times when creating the repository but after that it works (doesn't observe create event?)
+* Internal repository browser doesn't work yet
+* No automatic database migration tool at the moment
+
 = Redmine Gitolite
 
 A Redmine plugin which manages your gitolite configuration based on your projects and memberships in Redmine. Includes Public Key management views (extracted from http://plan.io).
