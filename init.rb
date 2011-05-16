@@ -14,10 +14,10 @@ Redmine::Plugin.register :redmine_gitolite do
   version '0.1.0'
   settings :default => {
     'gitoliteUrl' => 'git@localhost:gitolite-admin.git',
-    'gitoliteIdentityFile' => '/srv/projects/redmine/miner/.ssh/id_rsa',
-    'developerBaseUrls' => 'git@www.salamander-linux.com:,https://[user]@www.salamander-linux.com/git/',
-    'readOnlyBaseUrls' => 'http://www.salamander-linux.com/git/',
-    'basePath' => '/srv/projects/git/repositories/',
+    'gitoliteIdentityFile' => '/path/to/admin/id_rsa',
+    'developerBaseUrls' => 'git@example.com:,https://[user]@example.com/git/',
+    'readOnlyBaseUrls' => 'http://example.com/git/',
+    'basePath' => '/var/lib/gitolite/repositories/',
     }, 
     :partial => 'redmine_gitolite'
 end
