@@ -2,10 +2,9 @@ require 'redmine'
 require_dependency 'principal'
 require_dependency 'user'
 
-require_dependency 'gitolite'
-require_dependency 'gitolite/patches/repositories_controller_patch'
-require_dependency 'gitolite/patches/repositories_helper_patch'
-require_dependency 'gitolite/patches/git_adapter_patch'
+require_dependency 'redmine_gitolite'
+require_dependency 'redmine_gitolite/gitolite_adapter'
+require_dependency 'redmine_gitolite/patches/repositories_helper_patch'
 
 Redmine::Plugin.register :redmine_gitolite do
   name 'Redmine Gitolite plugin'
@@ -15,8 +14,8 @@ Redmine::Plugin.register :redmine_gitolite do
   settings :default => {
     'gitoliteUrl' => 'git@localhost:gitolite-admin.git',
     'gitoliteIdentityFile' => '/path/to/admin/id_rsa',
-    'developerBaseUrls' => 'git@example.com:,https://[user]@example.com/git/',
-    'readOnlyBaseUrls' => 'http://example.com/git/',
+    'developerBaseUrls' => 'git@example.com:,https://[user]@www.example.com/git/',
+    'readOnlyBaseUrls' => 'http://www.example.com/git/',
     'basePath' => '/var/lib/gitolite/repositories/',
     }, 
     :partial => 'redmine_gitolite'
@@ -31,8 +30,12 @@ class GitoliteProjectShowHook < Redmine::Hook::ViewListener
   render_on :view_projects_show_left, :partial => 'redmine_gitolite'
 end
 
+# TODO: this part still doesn't work in dev mode... even dies with Dispatcher. WHY???
 # initialize association from user -> public keys
+require 'user'
 User.send(:has_many, :gitolite_public_keys, :dependent => :destroy)
+Redmine::Scm::Base.add "Gitolite" unless Redmine::Scm::Base.all.include? "Gitolite"
 
 # initialize observer
-ActiveRecord::Base.observers = ActiveRecord::Base.observers << GitoliteObserver
+ActiveRecord::Base.observers = ActiveRecord::Base.observers << RedmineGitoliteObserver
+
