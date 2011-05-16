@@ -1,6 +1,6 @@
 class GitolitePublicKey < ActiveRecord::Base
-  STATUS_ACTIVE = true
-  STATUS_LOCKED = false
+  STATUS_ACTIVE = 1
+  STATUS_LOCKED = 0
 
   belongs_to :user
   validates_uniqueness_of :title, :scope => :user_id
@@ -24,7 +24,7 @@ class GitolitePublicKey < ActiveRecord::Base
   
   def set_identifier
     # TODO: some better naming, id is set long AFTER this method is called. Maybe timestamp?
-    self.identifier ||= "#{self.user.login.underscore}-#{self.title.underscore}-#{self.id}".gsub(/[^0-9a-zA-Z-_]/,'_')
+    self.identifier ||= "#{self.user.login.underscore}@#{self.title.underscore}".gsub(/[^0-9a-zA-Z-_@]/,'_')
   end
     
   def to_s ; title ; end
