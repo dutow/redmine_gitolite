@@ -1,25 +1,37 @@
-= Patches
-* work with gitolite
-* support subproject git repo. (e.g. git@site.name:parent_project/subproject.git)
-* fix bugs.
-
 = Redmine Gitolite
 
 A Redmine plugin which manages your gitolite configuration based on your projects and memberships in Redmine. Includes Public Key management views (extracted from http://plan.io).
 
-This plugin was originally developed by Jan Schulz-Hofen for http://plan.io.  Several updates/fixes were provided by github users untoldwind, tingar and ericpaulbishop. These updates were merged together and expanded upon by Eric Bishop.
+This branch replaces the "git" scm with the gitolite version, making the original available only with manual database edits.
 
-In order to use this plugin you must have the following gems installed:
+The newscm branch creates a new scm module but currently not fully functional. For more information, see the readme in the newscm branch.
 
-lockfile
+= Installation
 
-inifile
+You need to have the following gems installed:
 
-net-ssh
+* lockfile
+* inifile
+* net-ssh
+
+
+you need gitolite installed on the same server, and a gitolite account with write permissions to the gitolite-admin repository to use this plugin
+
+after install run rake db:migrate:plugins to create the plugin's tables
 
 
 == Copyright & License
 
 Copyright (c) 2009-2010 Jan Schulz-Hofen, ROCKET RENTALS GmbH (http://www.rocket-rentals.de). MIT License.
 
-Copyright (c) 2010 Eric Bishop (ericpaulbishop@gmail.com) MIT License.
+The plugin is distributed under the MIT License
+
+Contributors:
+
+* Christian Kaser
+* Zsolt Parragi
+* Yunshang Choi
+* Joshua Hogendron
+* Jan-Schulz-Hofen
+* Eric Bishop
+* and others
